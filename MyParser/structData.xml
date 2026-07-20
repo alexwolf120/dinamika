@@ -1,0 +1,238 @@
+<?xml version="1.0"?>
+<GCC_XML version="0.9.0" cvs_revision="1.145">
+  <Namespace id="_1" name="::" members="_2 _3 _4 _5 _6 _7 _8 _9 _10 _11 _12 _13 _14 _15 _16 _17 _18 _19 _20 _21 _22 _23 _24 _25 _26 _27 _28 _29 _30 _31 _32 _33 _34 _35 _36 _37 _38 _39 _40 _41 _42 _43 _44 _45 _46 _47 _48 _49 _50 _51 _52 _53 _54 _55 _56 _57 _58 _59 _60 _61 _62 _63 _64 _65 _66 _67 _68 _69 _70 _71 _72 _73"/>
+  <Typedef id="_2" name="__int128_t" type="_74" context="_1" location="f0:0" file="f0" line="0"/>
+  <Typedef id="_3" name="__uint128_t" type="_75" context="_1" location="f0:0" file="f0" line="0"/>
+  <Typedef id="_4" name="__NSConstantString" type="_76" context="_1" location="f0:0" file="f0" line="0"/>
+  <Typedef id="_5" name="__builtin_ms_va_list" type="_77" context="_1" location="f0:0" file="f0" line="0"/>
+  <Typedef id="_6" name="__builtin_va_list" type="_77" context="_1" location="f0:0" file="f0" line="0"/>
+  <Namespace id="_7" name="std" context="_1" members="_19 _20 _42 _43 _44 _45 _46 _47 _48 _49 _50 _51 _52 _53 _54 _55 _56 _57 _58 _59 _60 _61 _62 _63 _64 _65 _66 _67 _78 _79 _80 _81 _82 _83"/>
+  <Namespace id="_8" name="__gnu_cxx" context="_1"/>
+  <Function id="_9" name="__builtin_is_constant_evaluated" returns="_84" context="_1" location="f1:595" file="f1" line="595" extern="1" artificial="1"/>
+  <Typedef id="_10" name="__gnuc_va_list" type="_6" context="_1" location="f2:24" file="f2" line="24"/>
+  <Typedef id="_11" name="va_list" type="_10" context="_1" location="f2:31" file="f2" line="31"/>
+  <Function id="_12" name="__debugbreak" returns="_85" context="_1" location="f3:604" file="f3" line="604"/>
+  <Function id="_13" name="__fastfail" returns="_85" context="_1" location="f3:625" file="f3" line="625">
+    <Argument name="_Code" type="_86" location="f3:625" file="f3" line="625"/>
+  </Function>
+  <Function id="_14" name="__mingw_get_crt_info" returns="_87" context="_1" location="f3:665" file="f3" line="665"/>
+  <Function id="_15" name="__builtin_unreachable" returns="_85" context="_1" location="f3:639" file="f3" line="639" extern="1" artificial="1"/>
+  <Typedef id="_16" name="size_t" type="_88" context="_1" location="f4:35" file="f4" line="35"/>
+  <Typedef id="_17" name="ssize_t" type="_89" context="_1" location="f4:45" file="f4" line="45"/>
+  <Typedef id="_18" name="rsize_t" type="_16" context="_1" location="f4:52" file="f4" line="52"/>
+  <Typedef id="_19" name="intptr_t" type="_89" context="_1" location="f4:62" file="f4" line="62"/>
+  <Typedef id="_20" name="uintptr_t" type="_88" context="_1" location="f4:75" file="f4" line="75"/>
+  <Typedef id="_21" name="ptrdiff_t" type="_89" context="_1" location="f4:88" file="f4" line="88"/>
+  <Typedef id="_22" name="wint_t" type="_90" context="_1" location="f4:106" file="f4" line="106"/>
+  <Typedef id="_23" name="wctype_t" type="_90" context="_1" location="f4:107" file="f4" line="107"/>
+  <Typedef id="_24" name="errno_t" type="_91" context="_1" location="f4:113" file="f4" line="113"/>
+  <Typedef id="_25" name="__time32_t" type="_92" context="_1" location="f4:118" file="f4" line="118"/>
+  <Typedef id="_26" name="__time64_t" type="_89" context="_1" location="f4:123" file="f4" line="123"/>
+  <Typedef id="_27" name="time_t" type="_26" context="_1" location="f4:138" file="f4" line="138"/>
+  <Function id="_28" name="_invalid_parameter_noinfo" returns="_85" context="_1" location="f4:157" file="f4" line="157" mangled="_Z25_invalid_parameter_noinfov" attributes="dllimport"/>
+  <Function id="_29" name="_invalid_parameter_noinfo_noreturn" returns="_85" context="_1" location="f4:158" file="f4" line="158" mangled="_Z34_invalid_parameter_noinfo_noreturnv" attributes="dllimport"/>
+  <Function id="_30" name="_invoke_watson" returns="_85" context="_1" location="f4:159" file="f4" line="159" mangled="_Z14_invoke_watsonPKwS0_S0_jy" attributes="dllimport">
+    <Argument name="expression" type="_93" location="f4:159" file="f4" line="159"/>
+    <Argument name="function_name" type="_93" location="f4:159" file="f4" line="159"/>
+    <Argument name="file_name" type="_93" location="f4:159" file="f4" line="159"/>
+    <Argument name="line_number" type="_86" location="f4:159" file="f4" line="159"/>
+    <Argument name="reserved" type="_88" location="f4:159" file="f4" line="159"/>
+  </Function>
+  <Struct id="_31" name="threadlocaleinfostruct" context="_1" location="f4:437" file="f4" line="437" incomplete="1"/>
+  <Struct id="_32" name="threadmbcinfostruct" context="_1" location="f4:438" file="f4" line="438" incomplete="1"/>
+  <Typedef id="_33" name="pthreadlocinfo" type="_94" context="_1" location="f4:439" file="f4" line="439"/>
+  <Typedef id="_34" name="pthreadmbcinfo" type="_95" context="_1" location="f4:440" file="f4" line="440"/>
+  <Struct id="_35" name="__lc_time_data" context="_1" location="f4:441" file="f4" line="441" incomplete="1"/>
+  <Struct id="_36" name="localeinfo_struct" context="_1" location="f4:443" file="f4" line="443" members="_96 _97 _98 _99 _100 _101" size="128" align="64"/>
+  <Typedef id="_37" name="_locale_tstruct" type="_36" context="_1" location="f4:446" file="f4" line="446"/>
+  <Typedef id="_38" name="_locale_t" type="_102" context="_1" location="f4:446" file="f4" line="446"/>
+  <Struct id="_39" name="tagLC_ID" context="_1" location="f4:450" file="f4" line="450" members="_103 _104 _105 _106 _107 _108 _109" size="48" align="16"/>
+  <Typedef id="_40" name="LC_ID" type="_39" context="_1" location="f4:454" file="f4" line="454"/>
+  <Typedef id="_41" name="LPLC_ID" type="_110" context="_1" location="f4:454" file="f4" line="454"/>
+  <Typedef id="_42" name="int8_t" type="_111" context="_1" location="f5:35" file="f5" line="35"/>
+  <Typedef id="_43" name="uint8_t" type="_112" context="_1" location="f5:36" file="f5" line="36"/>
+  <Typedef id="_44" name="int16_t" type="_113" context="_1" location="f5:37" file="f5" line="37"/>
+  <Typedef id="_45" name="uint16_t" type="_90" context="_1" location="f5:38" file="f5" line="38"/>
+  <Typedef id="_46" name="int32_t" type="_91" context="_1" location="f5:39" file="f5" line="39"/>
+  <Typedef id="_47" name="uint32_t" type="_86" context="_1" location="f5:40" file="f5" line="40"/>
+  <Typedef id="_48" name="int64_t" type="_89" context="_1" location="f5:41" file="f5" line="41"/>
+  <Typedef id="_49" name="uint64_t" type="_88" context="_1" location="f5:42" file="f5" line="42"/>
+  <Typedef id="_50" name="int_least8_t" type="_111" context="_1" location="f5:45" file="f5" line="45"/>
+  <Typedef id="_51" name="uint_least8_t" type="_112" context="_1" location="f5:46" file="f5" line="46"/>
+  <Typedef id="_52" name="int_least16_t" type="_113" context="_1" location="f5:47" file="f5" line="47"/>
+  <Typedef id="_53" name="uint_least16_t" type="_90" context="_1" location="f5:48" file="f5" line="48"/>
+  <Typedef id="_54" name="int_least32_t" type="_91" context="_1" location="f5:49" file="f5" line="49"/>
+  <Typedef id="_55" name="uint_least32_t" type="_86" context="_1" location="f5:50" file="f5" line="50"/>
+  <Typedef id="_56" name="int_least64_t" type="_89" context="_1" location="f5:51" file="f5" line="51"/>
+  <Typedef id="_57" name="uint_least64_t" type="_88" context="_1" location="f5:52" file="f5" line="52"/>
+  <Typedef id="_58" name="int_fast8_t" type="_111" context="_1" location="f5:58" file="f5" line="58"/>
+  <Typedef id="_59" name="uint_fast8_t" type="_112" context="_1" location="f5:59" file="f5" line="59"/>
+  <Typedef id="_60" name="int_fast16_t" type="_113" context="_1" location="f5:60" file="f5" line="60"/>
+  <Typedef id="_61" name="uint_fast16_t" type="_90" context="_1" location="f5:61" file="f5" line="61"/>
+  <Typedef id="_62" name="int_fast32_t" type="_91" context="_1" location="f5:62" file="f5" line="62"/>
+  <Typedef id="_63" name="uint_fast32_t" type="_86" context="_1" location="f5:63" file="f5" line="63"/>
+  <Typedef id="_64" name="int_fast64_t" type="_89" context="_1" location="f5:64" file="f5" line="64"/>
+  <Typedef id="_65" name="uint_fast64_t" type="_88" context="_1" location="f5:65" file="f5" line="65"/>
+  <Typedef id="_66" name="intmax_t" type="_89" context="_1" location="f5:68" file="f5" line="68"/>
+  <Typedef id="_67" name="uintmax_t" type="_88" context="_1" location="f5:69" file="f5" line="69"/>
+  <Enumeration id="_68" name="Color" context="_1" location="f6:5" file="f6" line="5" size="32" align="32">
+    <EnumValue name="RED" init="0"/>
+    <EnumValue name="GREEN" init="1"/>
+    <EnumValue name="BLUE" init="2"/>
+  </Enumeration>
+  <Struct id="_69" name="Colomnn" context="_1" location="f6:11" file="f6" line="11" members="_114 _115 _116 _117 _118 _119" size="128" align="64"/>
+  <Struct id="_70" name="Inner" context="_1" location="f6:17" file="f6" line="17" members="_120 _121 _122 _123 _124 _125 _126" size="256" align="64"/>
+  <Struct id="_71" name="ComplexStruct" context="_1" location="f6:25" file="f6" line="25" members="_127 _128 _129 _130 _131 _132 _133 _134 _135 _136 _137 _138 _139" size="1600" align="64"/>
+  <Struct id="_72" name="AnotherStruct" context="_1" location="f6:52" file="f6" line="52" members="_140 _141 _142 _143 _144 _145" size="128" align="64"/>
+  <Function id="_73" name="__builtin_memcpy" returns="_146" context="_1" location="f6:17" file="f6" line="17" extern="1" artificial="1">
+    <Argument type="_146"/>
+    <Argument type="_147"/>
+    <Argument type="_88"/>
+  </Function>
+  <FundamentalType id="_74" name="__int128" size="128" align="128"/>
+  <FundamentalType id="_75" name="unsigned __int128" size="128" align="128"/>
+  <Struct id="_76" name="__NSConstantString_tag" context="_1" location="f0:0" file="f0" line="0" members="_148 _149 _150 _151" size="256" align="64"/>
+  <PointerType id="_77" type="_152" size="64" align="64"/>
+  <Typedef id="_78" name="size_t" type="_88" context="_7" location="f1:344" file="f1" line="344"/>
+  <Typedef id="_79" name="ptrdiff_t" type="_89" context="_7" location="f1:345" file="f1" line="345"/>
+  <Typedef id="_80" name="nullptr_t" type="_153" context="_7" location="f1:348" file="f1" line="348"/>
+  <Function id="_81" name="__terminate" returns="_85" context="_7" location="f1:355" file="f1" line="355" inline="1" mangled="_ZSt11__terminatev"/>
+  <Function id="_82" name="__glibcxx_assert_fail" returns="_85" context="_7" location="f1:629" file="f1" line="629" mangled="_ZSt21__glibcxx_assert_failPKciS0_S0_">
+    <Argument name="__file" type="_87" location="f1:630" file="f1" line="630"/>
+    <Argument name="__line" type="_91" location="f1:630" file="f1" line="630"/>
+    <Argument name="__function" type="_87" location="f1:630" file="f1" line="630"/>
+    <Argument name="__condition" type="_87" location="f1:631" file="f1" line="631"/>
+  </Function>
+  <Function id="_83" name="__is_constant_evaluated" returns="_84" context="_7" location="f1:588" file="f1" line="588" inline="1" mangled="_ZSt23__is_constant_evaluatedv"/>
+  <FundamentalType id="_84" name="bool" size="8" align="8"/>
+  <FundamentalType id="_85" name="void" size="0" align="8"/>
+  <FundamentalType id="_86" name="unsigned int" size="32" align="32"/>
+  <PointerType id="_87" type="_152c" size="64" align="64"/>
+  <FundamentalType id="_88" name="long long unsigned int" size="64" align="64"/>
+  <FundamentalType id="_89" name="long long int" size="64" align="64"/>
+  <FundamentalType id="_90" name="short unsigned int" size="16" align="16"/>
+  <FundamentalType id="_91" name="int" size="32" align="32"/>
+  <FundamentalType id="_92" name="long int" size="32" align="32"/>
+  <PointerType id="_93" type="_154c" size="64" align="64"/>
+  <PointerType id="_94" type="_31" size="64" align="64"/>
+  <PointerType id="_95" type="_32" size="64" align="64"/>
+  <Field id="_96" name="locinfo" type="_33" context="_36" access="public" location="f4:444" file="f4" line="444" offset="0"/>
+  <Field id="_97" name="mbcinfo" type="_34" context="_36" access="public" location="f4:445" file="f4" line="445" offset="64"/>
+  <Constructor id="_98" name="localeinfo_struct" context="_36" access="public" location="f4:443" file="f4" line="443" inline="1" artificial="1"/>
+  <Constructor id="_99" name="localeinfo_struct" context="_36" access="public" location="f4:443" file="f4" line="443" inline="1" artificial="1">
+    <Argument type="_155" location="f4:443" file="f4" line="443"/>
+  </Constructor>
+  <OperatorMethod id="_100" name="=" returns="_156" context="_36" access="public" location="f4:443" file="f4" line="443" inline="1" artificial="1" mangled="_ZN17localeinfo_structaSERKS_">
+    <Argument type="_155" location="f4:443" file="f4" line="443"/>
+  </OperatorMethod>
+  <Destructor id="_101" name="localeinfo_struct" context="_36" access="public" location="f4:443" file="f4" line="443" inline="1" artificial="1"/>
+  <PointerType id="_102" type="_36" size="64" align="64"/>
+  <Field id="_103" name="wLanguage" type="_90" context="_39" access="public" location="f4:451" file="f4" line="451" offset="0"/>
+  <Field id="_104" name="wCountry" type="_90" context="_39" access="public" location="f4:452" file="f4" line="452" offset="16"/>
+  <Field id="_105" name="wCodePage" type="_90" context="_39" access="public" location="f4:453" file="f4" line="453" offset="32"/>
+  <Constructor id="_106" name="tagLC_ID" context="_39" access="public" location="f4:450" file="f4" line="450" inline="1" artificial="1"/>
+  <Constructor id="_107" name="tagLC_ID" context="_39" access="public" location="f4:450" file="f4" line="450" inline="1" artificial="1">
+    <Argument type="_157" location="f4:450" file="f4" line="450"/>
+  </Constructor>
+  <OperatorMethod id="_108" name="=" returns="_158" context="_39" access="public" location="f4:450" file="f4" line="450" inline="1" artificial="1" mangled="_ZN8tagLC_IDaSERKS_">
+    <Argument type="_157" location="f4:450" file="f4" line="450"/>
+  </OperatorMethod>
+  <Destructor id="_109" name="tagLC_ID" context="_39" access="public" location="f4:450" file="f4" line="450" inline="1" artificial="1"/>
+  <PointerType id="_110" type="_39" size="64" align="64"/>
+  <FundamentalType id="_111" name="signed char" size="8" align="8"/>
+  <FundamentalType id="_112" name="unsigned char" size="8" align="8"/>
+  <FundamentalType id="_113" name="short int" size="16" align="16"/>
+  <Field id="_114" name="a" type="_91" context="_69" access="public" location="f6:13" file="f6" line="13" offset="0"/>
+  <Field id="_115" name="b" type="_159" context="_69" access="public" location="f6:14" file="f6" line="14" offset="64"/>
+  <Constructor id="_116" name="Colomnn" context="_69" access="public" location="f6:11" file="f6" line="11" inline="1" artificial="1"/>
+  <Constructor id="_117" name="Colomnn" context="_69" access="public" location="f6:11" file="f6" line="11" inline="1" artificial="1">
+    <Argument type="_160" location="f6:11" file="f6" line="11"/>
+  </Constructor>
+  <OperatorMethod id="_118" name="=" returns="_161" context="_69" access="public" location="f6:11" file="f6" line="11" inline="1" artificial="1" mangled="_ZN7ColomnnaSERKS_">
+    <Argument type="_160" location="f6:11" file="f6" line="11"/>
+  </OperatorMethod>
+  <Destructor id="_119" name="Colomnn" context="_69" access="public" location="f6:11" file="f6" line="11" inline="1" artificial="1"/>
+  <Field id="_120" name="x" type="_91" context="_70" access="public" location="f6:19" file="f6" line="19" offset="0"/>
+  <Field id="_121" name="y" type="_159" context="_70" access="public" location="f6:20" file="f6" line="20" offset="64"/>
+  <Field id="_122" name="label" type="_162" context="_70" access="public" location="f6:21" file="f6" line="21" offset="128"/>
+  <Constructor id="_123" name="Inner" context="_70" access="public" location="f6:17" file="f6" line="17" inline="1" artificial="1"/>
+  <Constructor id="_124" name="Inner" context="_70" access="public" location="f6:17" file="f6" line="17" inline="1" artificial="1">
+    <Argument type="_163" location="f6:17" file="f6" line="17"/>
+  </Constructor>
+  <OperatorMethod id="_125" name="=" returns="_164" context="_70" access="public" location="f6:17" file="f6" line="17" inline="1" artificial="1" mangled="_ZN5InneraSERKS_">
+    <Argument type="_163" location="f6:17" file="f6" line="17"/>
+  </OperatorMethod>
+  <Destructor id="_126" name="Inner" context="_70" access="public" location="f6:17" file="f6" line="17" inline="1" artificial="1"/>
+  <Field id="_127" name="id" type="_91" context="_71" access="public" location="f6:28" file="f6" line="28" offset="0"/>
+  <Field id="_128" name="fvalue" type="_165" context="_71" access="public" location="f6:29" file="f6" line="29" offset="32"/>
+  <Field id="_129" name="dvalue" type="_159" context="_71" access="public" location="f6:30" file="f6" line="30" offset="64"/>
+  <Field id="_130" name="name" type="_166" context="_71" access="public" location="f6:31" file="f6" line="31" offset="128"/>
+  <Field id="_131" name="flag" type="_84" context="_71" access="public" location="f6:32" file="f6" line="32" offset="384"/>
+  <Field id="_132" name="inner" type="_70" context="_71" access="public" location="f6:35" file="f6" line="35" offset="448"/>
+  <Field id="_133" name="numbers" type="_167" context="_71" access="public" location="f6:38" file="f6" line="38" offset="704"/>
+  <Field id="_134" name="color" type="_68" context="_71" access="public" location="f6:45" file="f6" line="45" offset="1024"/>
+  <Field id="_135" name="message" type="_168" context="_71" access="public" location="f6:48" file="f6" line="48" offset="1056"/>
+  <Constructor id="_136" name="ComplexStruct" context="_71" access="public" location="f6:25" file="f6" line="25" inline="1" artificial="1"/>
+  <Constructor id="_137" name="ComplexStruct" context="_71" access="public" location="f6:25" file="f6" line="25" inline="1" artificial="1">
+    <Argument type="_169" location="f6:25" file="f6" line="25"/>
+  </Constructor>
+  <OperatorMethod id="_138" name="=" returns="_170" context="_71" access="public" location="f6:25" file="f6" line="25" inline="1" artificial="1" mangled="_ZN13ComplexStructaSERKS_">
+    <Argument type="_169" location="f6:25" file="f6" line="25"/>
+  </OperatorMethod>
+  <Destructor id="_139" name="ComplexStruct" context="_71" access="public" location="f6:25" file="f6" line="25" inline="1" artificial="1"/>
+  <Field id="_140" name="a" type="_91" context="_72" access="public" location="f6:54" file="f6" line="54" offset="0"/>
+  <Field id="_141" name="b" type="_159" context="_72" access="public" location="f6:55" file="f6" line="55" offset="64"/>
+  <Constructor id="_142" name="AnotherStruct" context="_72" access="public" location="f6:52" file="f6" line="52" inline="1" artificial="1"/>
+  <Constructor id="_143" name="AnotherStruct" context="_72" access="public" location="f6:52" file="f6" line="52" inline="1" artificial="1">
+    <Argument type="_171" location="f6:52" file="f6" line="52"/>
+  </Constructor>
+  <OperatorMethod id="_144" name="=" returns="_172" context="_72" access="public" location="f6:52" file="f6" line="52" inline="1" artificial="1" mangled="_ZN13AnotherStructaSERKS_">
+    <Argument type="_171" location="f6:52" file="f6" line="52"/>
+  </OperatorMethod>
+  <Destructor id="_145" name="AnotherStruct" context="_72" access="public" location="f6:52" file="f6" line="52" inline="1" artificial="1"/>
+  <PointerType id="_146" type="_85" size="64" align="64"/>
+  <PointerType id="_147" type="_85c" size="64" align="64"/>
+  <CvQualifiedType id="_85c" type="_85" const="1"/>
+  <Field id="_148" name="isa" type="_173" context="_76" access="public" offset="0"/>
+  <Field id="_149" name="flags" type="_91" context="_76" access="public" offset="64"/>
+  <Field id="_150" name="str" type="_87" context="_76" access="public" offset="128"/>
+  <Field id="_151" name="length" type="_92" context="_76" access="public" offset="192"/>
+  <CvQualifiedType id="_152c" type="_152" const="1"/>
+  <Unimplemented id="_153" type_class="Decltype"/>
+  <CvQualifiedType id="_154c" type="_154" const="1"/>
+  <ReferenceType id="_155" type="_36c" size="64" align="64"/>
+  <CvQualifiedType id="_36c" type="_36" const="1"/>
+  <ReferenceType id="_156" type="_36" size="64" align="64"/>
+  <ReferenceType id="_157" type="_39c" size="64" align="64"/>
+  <CvQualifiedType id="_39c" type="_39" const="1"/>
+  <ReferenceType id="_158" type="_39" size="64" align="64"/>
+  <FundamentalType id="_159" name="double" size="64" align="64"/>
+  <ReferenceType id="_160" type="_69c" size="64" align="64"/>
+  <CvQualifiedType id="_69c" type="_69" const="1"/>
+  <ReferenceType id="_161" type="_69" size="64" align="64"/>
+  <ArrayType id="_162" min="0" max="15" type="_152"/>
+  <FundamentalType id="_152" name="char" size="8" align="8"/>
+  <ReferenceType id="_163" type="_70c" size="64" align="64"/>
+  <CvQualifiedType id="_70c" type="_70" const="1"/>
+  <ReferenceType id="_164" type="_70" size="64" align="64"/>
+  <FundamentalType id="_165" name="float" size="32" align="32"/>
+  <ArrayType id="_166" min="0" max="31" type="_152"/>
+  <ArrayType id="_167" min="0" max="9" type="_91"/>
+  <ArrayType id="_168" min="0" max="63" type="_152"/>
+  <ReferenceType id="_169" type="_71c" size="64" align="64"/>
+  <CvQualifiedType id="_71c" type="_71" const="1"/>
+  <ReferenceType id="_170" type="_71" size="64" align="64"/>
+  <ReferenceType id="_171" type="_72c" size="64" align="64"/>
+  <CvQualifiedType id="_72c" type="_72" const="1"/>
+  <ReferenceType id="_172" type="_72" size="64" align="64"/>
+  <PointerType id="_173" type="_91c" size="64" align="64"/>
+  <CvQualifiedType id="_91c" type="_91" const="1"/>
+  <FundamentalType id="_154" name="wchar_t" size="16" align="16"/>
+  <File id="f0" name="&lt;builtin&gt;"/>
+  <File id="f1" name="C:/msys64/mingw64/include/c++/16.1.0/x86_64-w64-mingw32/bits/c++config.h"/>
+  <File id="f2" name="C:/msys64/mingw64/include/vadefs.h"/>
+  <File id="f3" name="C:/msys64/mingw64/include/_mingw.h"/>
+  <File id="f4" name="C:/msys64/mingw64/include/corecrt.h"/>
+  <File id="f5" name="C:/msys64/mingw64/include/stdint.h"/>
+  <File id="f6" name="C:/dinamika/MyParser/structData.h"/>
+</GCC_XML>
