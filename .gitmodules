@@ -1,0 +1,3 @@
+[submodule "CastXML-Builder/CastXML"]
+	path = CastXML-Builder/CastXML
+	url = https://github.com/CastXML/CastXML.git
