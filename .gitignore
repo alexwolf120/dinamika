@@ -1,0 +1,14 @@
+CastXML-Builder/CastXML-build/
+CastXML-Builder/CastXML-Linux-build/
+CastXML-Builder/bin/
+CastXML-Builder/bin-linux/
+CastXML-Builder/*.xml
+
+CastXML-Builder/lib/
+
+*.log
+*.tmp
+*.cache
+*.ninja*
+CMakeCache.txt
+CMakeFiles/
