@@ -2,66 +2,26 @@
 set -e
 
 echo "============================================================"
-echo "CastXML Builder - Linux (fully portable, no system deps)"
+echo "CastXML Builder - Linux (uses bundled Clang)"
 echo "============================================================"
 echo
+
+# Проверка базовых утилит
+command -v wget >/dev/null 2>&1 || { echo "ERROR: wget not found. Install: sudo apt install wget"; exit 1; }
+command -v tar >/dev/null 2>&1 || { echo "ERROR: tar not found. Install: sudo apt install tar"; exit 1; }
+command -v unzip >/dev/null 2>&1 || { echo "ERROR: unzip not found. Install: sudo apt install unzip"; exit 1; }
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT="$SCRIPT_DIR"
 TOOLS_DIR="$ROOT/tools"
 CMAKE_DIR="$TOOLS_DIR/cmake-3.20"
 NINJA_DIR="$TOOLS_DIR/ninja"
-GCC_DIR="$TOOLS_DIR/gcc-12.2.0"
 LLVM_DIR="$ROOT/lib/llvm-12.0.1"
 CASTXML_SRC="$ROOT/CastXML"
 BUILD_DIR="$ROOT/CastXML-Linux-build"
 INSTALL_DIR="$ROOT/bin-linux"
 
-# Проверка наличия базовых утилит
-command -v wget >/dev/null 2>&1 || { echo "ERROR: wget not found. Install: sudo apt install wget"; exit 1; }
-command -v tar >/dev/null 2>&1 || { echo "ERROR: tar not found. Install: sudo apt install tar"; exit 1; }
-command -v unzip >/dev/null 2>&1 || { echo "ERROR: unzip not found. Install: sudo apt install unzip"; exit 1; }
-
-# 1. Скачивание GCC (если нет)
-if [ ! -f "$GCC_DIR/bin/g++" ]; then
-    echo "[INFO] Downloading GCC 12.2.0 (pre-built)..."
-    mkdir -p "$TOOLS_DIR"
-    cd "$TOOLS_DIR"
-    wget -c https://mirrors.kernel.org/gnu/gcc/gcc-12.2.0/gcc-12.2.0.tar.xz
-    tar -xf gcc-12.2.0.tar.xz
-    # Для готового бинарника лучше взять готовую сборку, но мы сделаем простой вариант:
-    # Скачаем бинарник GCC с https://github.com/brechtsanders/winlibs_mingw/releases (но там для Windows)
-    # Вместо этого используем системный g++ если он есть, но если нет, то откажемся.
-    # Проще установить g++ через apt, но у вас конфликты. Поэтому я предлагаю использовать CLang вместо GCC?
-    echo "ERROR: Pre-built GCC not available in this script. Please install g++ via apt or use alternative."
-    exit 1
-fi
-
-# Вместо GCC будем использовать системный g++, если он есть, иначе скачиваем готовый бинарник с другого источника.
-
-# Проверка наличия g++ в системе
-if command -v g++ >/dev/null 2>&1; then
-    CXX_COMPILER=g++
-    C_COMPILER=gcc
-    echo "[INFO] Using system g++: $(g++ --version | head -1)"
-else
-    echo "[INFO] System g++ not found. Trying to use pre-built GCC from archive..."
-    # Скачиваем готовый бинарный GCC для Linux x86_64 с официального сайта (например, с https://ftp.gnu.org/gnu/gcc/)
-    # Но готовых бинарников для Linux на gnu.org нет, только исходники.
-    # Альтернатива: использовать Clang (уже есть в LLVM) для сборки CastXML? 
-    # CastXML требует C++17, Clang подойдёт.
-    # Используем clang++ из скачанного LLVM.
-    if [ -f "$LLVM_DIR/bin/clang++" ]; then
-        CXX_COMPILER="$LLVM_DIR/bin/clang++"
-        C_COMPILER="$LLVM_DIR/bin/clang"
-        echo "[INFO] Using clang++ from LLVM: $($CXX_COMPILER --version | head -1)"
-    else
-        echo "ERROR: Neither g++ nor clang++ found. Please install g++ or ensure LLVM is downloaded."
-        exit 1
-    fi
-fi
-
-# 2. Скачивание CMake (если нет)
+# Скачивание CMake
 if [ ! -f "$CMAKE_DIR/bin/cmake" ]; then
     echo "[INFO] Downloading CMake 3.20..."
     mkdir -p "$TOOLS_DIR"
@@ -72,7 +32,7 @@ if [ ! -f "$CMAKE_DIR/bin/cmake" ]; then
     cd "$ROOT"
 fi
 
-# 3. Скачивание Ninja (если нет)
+# Скачивание Ninja
 if [ ! -f "$NINJA_DIR/ninja" ]; then
     echo "[INFO] Downloading Ninja..."
     mkdir -p "$NINJA_DIR"
@@ -83,7 +43,7 @@ if [ ! -f "$NINJA_DIR/ninja" ]; then
     cd "$ROOT"
 fi
 
-# 4. Скачивание LLVM 12.0.1 для Linux (если нет)
+# Скачивание LLVM 12.0.1 (содержит clang)
 if [ ! -d "$LLVM_DIR" ] || [ ! -f "$LLVM_DIR/lib/cmake/llvm/LLVMConfig.cmake" ]; then
     echo "[INFO] Downloading LLVM 12.0.1 for Linux..."
     mkdir -p "$ROOT/lib"
@@ -94,7 +54,13 @@ if [ ! -d "$LLVM_DIR" ] || [ ! -f "$LLVM_DIR/lib/cmake/llvm/LLVMConfig.cmake" ];
     cd "$ROOT"
 fi
 
-# 5. Скачивание CastXML как архива (без git)
+# Проверка наличия clang в скачанном LLVM
+if [ ! -f "$LLVM_DIR/bin/clang++" ]; then
+    echo "ERROR: clang++ not found in $LLVM_DIR/bin"
+    exit 1
+fi
+
+# Скачивание CastXML как архива (без git)
 if [ ! -d "$CASTXML_SRC" ] || [ ! -f "$CASTXML_SRC/CMakeLists.txt" ]; then
     echo "[INFO] Downloading CastXML source..."
     cd "$ROOT"
@@ -103,7 +69,7 @@ if [ ! -d "$CASTXML_SRC" ] || [ ! -f "$CASTXML_SRC/CMakeLists.txt" ]; then
     mv CastXML-master CastXML
 fi
 
-# 6. Очистка старой сборки
+# Очистка старой сборки
 if [ -d "$BUILD_DIR" ]; then
     echo "[INFO] Removing old build directory..."
     rm -rf "$BUILD_DIR"
@@ -111,11 +77,11 @@ fi
 mkdir -p "$BUILD_DIR"
 cd "$BUILD_DIR"
 
-# 7. Конфигурация CMake
-echo "[INFO] Configuring CMake..."
+# Конфигурация CMake с использованием Clang из LLVM
+echo "[INFO] Configuring CMake with Clang..."
 "$CMAKE_DIR/bin/cmake" -G "Ninja" \
-    -DCMAKE_CXX_COMPILER="$CXX_COMPILER" \
-    -DCMAKE_C_COMPILER="$C_COMPILER" \
+    -DCMAKE_C_COMPILER="$LLVM_DIR/bin/clang" \
+    -DCMAKE_CXX_COMPILER="$LLVM_DIR/bin/clang++" \
     -DCMAKE_BUILD_TYPE=Release \
     -DClang_DIR="$LLVM_DIR/lib/cmake/clang" \
     -DLLVM_DIR="$LLVM_DIR/lib/cmake/llvm" \
@@ -125,7 +91,7 @@ echo "[INFO] Configuring CMake..."
     -DCMAKE_EXE_LINKER_FLAGS="-static-libgcc -static-libstdc++" \
     "$CASTXML_SRC"
 
-# 8. Сборка и установка
+# Сборка и установка
 echo "[INFO] Building..."
 "$NINJA_DIR/ninja"
 echo "[INFO] Installing..."
