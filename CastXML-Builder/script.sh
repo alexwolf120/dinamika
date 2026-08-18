@@ -14,7 +14,7 @@ command -v unzip >/dev/null 2>&1 || { echo "ERROR: unzip not found. Install: sud
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT="$SCRIPT_DIR"
 
-# === Linux папки ===
+# === Linux-специфичные папки (не пересекаются с Windows) ===
 TOOLS_LINUX_DIR="$ROOT/tools-linux"
 CMAKE_DIR="$TOOLS_LINUX_DIR/cmake-3.20"
 NINJA_DIR="$TOOLS_LINUX_DIR/ninja"
@@ -60,7 +60,6 @@ if [ ! -d "$LLVM_DIR" ] || [ ! -f "$LLVM_DIR/lib/cmake/llvm/LLVMConfig.cmake" ];
     cd "$ROOT/lib"
     wget -c https://github.com/llvm/llvm-project/releases/download/llvmorg-12.0.1/clang+llvm-12.0.1-x86_64-linux-gnu-ubuntu-16.04.tar.xz
     tar -xf clang+llvm-12.0.1-x86_64-linux-gnu-ubuntu-16.04.tar.xz
-    # Находим извлечённую папку
     EXTRACTED_DIR=$(ls -d clang+llvm-* 2>/dev/null | head -n1)
     if [ -n "$EXTRACTED_DIR" ]; then
         echo "[INFO] Found extracted folder: $EXTRACTED_DIR, renaming to llvm-12.0.1-linux"
@@ -84,17 +83,14 @@ fi
 if [ ! -d "$CASTXML_SRC" ] || [ ! -f "$CASTXML_SRC/CMakeLists.txt" ]; then
     echo "[INFO] Downloading CastXML source..."
     cd "$ROOT"
-    # Удаляем старый мусор, если есть
     rm -rf CastXML-master.tar.gz CastXML-master CastXML 2>/dev/null
     wget -c https://github.com/CastXML/CastXML/archive/refs/heads/master.tar.gz -O CastXML-master.tar.gz
     tar -xzf CastXML-master.tar.gz
-    # Проверяем, что распаковалось
     if [ -d "CastXML-master" ] && [ -f "CastXML-master/CMakeLists.txt" ]; then
         mv CastXML-master CastXML
         echo "[INFO] CastXML source extracted successfully"
     else
         echo "ERROR: Failed to extract CastXML source"
-        echo "Contents of current directory:"
         ls -la
         exit 1
     fi
@@ -108,9 +104,10 @@ fi
 mkdir -p "$BUILD_DIR"
 cd "$BUILD_DIR"
 
-# === 6. Конфигурация CMake ===
+# === 6. Конфигурация CMake (исправлено: указан путь к Ninja) ===
 echo "[INFO] Configuring CMake with Clang..."
 "$CMAKE_DIR/bin/cmake" -G "Ninja" \
+    -DCMAKE_MAKE_PROGRAM="$NINJA_DIR/ninja" \
     -DCMAKE_C_COMPILER="$LLVM_DIR/bin/clang" \
     -DCMAKE_CXX_COMPILER="$LLVM_DIR/bin/clang++" \
     -DCMAKE_BUILD_TYPE=Release \
