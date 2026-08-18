@@ -2,7 +2,7 @@
 set -e
 
 echo "============================================================"
-echo "CastXML Builder - Linux (uses bundled Clang)"
+echo "CastXML Builder - Linux (uses separate LLVM for Linux)"
 echo "============================================================"
 echo
 
@@ -16,7 +16,8 @@ ROOT="$SCRIPT_DIR"
 TOOLS_DIR="$ROOT/tools"
 CMAKE_DIR="$TOOLS_DIR/cmake-3.20"
 NINJA_DIR="$TOOLS_DIR/ninja"
-LLVM_DIR="$ROOT/lib/llvm-12.0.1"
+# Используем отдельную папку для Linux, чтобы не трогать Windows-версию
+LLVM_DIR="$ROOT/lib/llvm-12.0.1-linux"
 CASTXML_SRC="$ROOT/CastXML"
 BUILD_DIR="$ROOT/CastXML-Linux-build"
 INSTALL_DIR="$ROOT/bin-linux"
@@ -43,20 +44,30 @@ if [ ! -f "$NINJA_DIR/ninja" ]; then
     cd "$ROOT"
 fi
 
-# Скачивание LLVM 12.0.1 (содержит clang)
+# Скачивание LLVM 12.0.1 для Linux (в отдельную папку)
 if [ ! -d "$LLVM_DIR" ] || [ ! -f "$LLVM_DIR/lib/cmake/llvm/LLVMConfig.cmake" ]; then
-    echo "[INFO] Downloading LLVM 12.0.1 for Linux..."
+    echo "[INFO] Downloading LLVM 12.0.1 for Linux (into separate folder)..."
     mkdir -p "$ROOT/lib"
     cd "$ROOT/lib"
+    # Скачиваем архив
     wget -c https://github.com/llvm/llvm-project/releases/download/llvmorg-12.0.1/clang+llvm-12.0.1-x86_64-linux-gnu-ubuntu-20.04.tar.xz
     tar -xf clang+llvm-12.0.1-x86_64-linux-gnu-ubuntu-20.04.tar.xz
-    mv clang+llvm-12.0.1-x86_64-linux-gnu-ubuntu-20.04 llvm-12.0.1
+    # Находим извлечённую папку (начинается с clang+llvm-)
+    EXTRACTED_DIR=$(ls -d clang+llvm-* 2>/dev/null | head -n1)
+    if [ -n "$EXTRACTED_DIR" ]; then
+        echo "[INFO] Found extracted folder: $EXTRACTED_DIR, renaming to llvm-12.0.1-linux"
+        mv "$EXTRACTED_DIR" llvm-12.0.1-linux
+    else
+        echo "ERROR: Could not find extracted LLVM folder"
+        exit 1
+    fi
     cd "$ROOT"
 fi
 
-# Проверка наличия clang в скачанном LLVM
+# Проверка наличия clang в Linux-папке
 if [ ! -f "$LLVM_DIR/bin/clang++" ]; then
     echo "ERROR: clang++ not found in $LLVM_DIR/bin"
+    echo "Please check the folder structure."
     exit 1
 fi
 
@@ -77,7 +88,7 @@ fi
 mkdir -p "$BUILD_DIR"
 cd "$BUILD_DIR"
 
-# Конфигурация CMake с использованием Clang из LLVM
+# Конфигурация CMake с использованием Clang из Linux-LLVM
 echo "[INFO] Configuring CMake with Clang..."
 "$CMAKE_DIR/bin/cmake" -G "Ninja" \
     -DCMAKE_C_COMPILER="$LLVM_DIR/bin/clang" \
