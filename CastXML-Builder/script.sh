@@ -2,7 +2,7 @@
 set -e
 
 echo "============================================================"
-echo "CastXML Builder - Linux (separate tools, no git)"
+echo "CastXML Builder - Linux (smart: uses system tools if available)"
 echo "============================================================"
 echo
 
@@ -14,7 +14,32 @@ command -v unzip >/dev/null 2>&1 || { echo "ERROR: unzip not found. Install: sud
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT="$SCRIPT_DIR"
 
-# === Linux-специфичные папки (не пересекаются с Windows) ===
+# === Определяем, использовать системные или свои инструменты ===
+USE_SYSTEM_CMAKE=0
+USE_SYSTEM_NINJA=0
+
+# Проверка системного CMake (нужна версия >= 3.10)
+if command -v cmake >/dev/null 2>&1; then
+    CMAKE_VERSION=$(cmake --version | head -n1 | grep -oE '[0-9]+\.[0-9]+' | head -n1)
+    if [ -n "$CMAKE_VERSION" ] && [ "$(echo "$CMAKE_VERSION >= 3.10" | bc)" -eq 1 ]; then
+        echo "[INFO] System CMake found (version $CMAKE_VERSION) – will use it."
+        USE_SYSTEM_CMAKE=1
+    else
+        echo "[WARN] System CMake version $CMAKE_VERSION is too old (< 3.10). Will download own CMake."
+    fi
+else
+    echo "[INFO] System CMake not found. Will download own CMake."
+fi
+
+# Проверка системного Ninja
+if command -v ninja >/dev/null 2>&1; then
+    echo "[INFO] System Ninja found – will use it."
+    USE_SYSTEM_NINJA=1
+else
+    echo "[INFO] System Ninja not found. Will download own Ninja."
+fi
+
+# === Настройка путей ===
 TOOLS_LINUX_DIR="$ROOT/tools-linux"
 CMAKE_DIR="$TOOLS_LINUX_DIR/cmake-3.20"
 NINJA_DIR="$TOOLS_LINUX_DIR/ninja"
@@ -23,16 +48,24 @@ CASTXML_SRC="$ROOT/CastXML"
 BUILD_DIR="$ROOT/CastXML-Linux-build"
 INSTALL_DIR="$ROOT/bin-linux"
 
-echo "[INFO] Using Linux-specific folders:"
-echo "  CMake:  $CMAKE_DIR"
-echo "  Ninja:  $NINJA_DIR"
+echo "[INFO] Using folders:"
 echo "  LLVM:   $LLVM_DIR"
 echo "  Build:  $BUILD_DIR"
 echo "  Install: $INSTALL_DIR"
+if [ $USE_SYSTEM_CMAKE -eq 1 ]; then
+    echo "  CMake:  system ($(cmake --version | head -n1))"
+else
+    echo "  CMake:  $CMAKE_DIR"
+fi
+if [ $USE_SYSTEM_NINJA -eq 1 ]; then
+    echo "  Ninja:  system ($(ninja --version 2>/dev/null || echo 'unknown'))"
+else
+    echo "  Ninja:  $NINJA_DIR"
+fi
 echo
 
-# === 1. Скачивание CMake для Linux ===
-if [ ! -f "$CMAKE_DIR/bin/cmake" ]; then
+# === 1. Скачивание CMake (если не используется системный) ===
+if [ $USE_SYSTEM_CMAKE -eq 0 ] && [ ! -f "$CMAKE_DIR/bin/cmake" ]; then
     echo "[INFO] Downloading CMake 3.20 for Linux..."
     mkdir -p "$TOOLS_LINUX_DIR"
     cd "$TOOLS_LINUX_DIR"
@@ -42,8 +75,8 @@ if [ ! -f "$CMAKE_DIR/bin/cmake" ]; then
     cd "$ROOT"
 fi
 
-# === 2. Скачивание Ninja для Linux ===
-if [ ! -f "$NINJA_DIR/ninja" ]; then
+# === 2. Скачивание Ninja (если не используется системный) ===
+if [ $USE_SYSTEM_NINJA -eq 0 ] && [ ! -f "$NINJA_DIR/ninja" ]; then
     echo "[INFO] Downloading Ninja for Linux..."
     mkdir -p "$NINJA_DIR"
     cd "$NINJA_DIR"
@@ -104,10 +137,24 @@ fi
 mkdir -p "$BUILD_DIR"
 cd "$BUILD_DIR"
 
-# === 6. Конфигурация CMake (исправлено: указан путь к Ninja) ===
+# === 6. Конфигурация CMake ===
 echo "[INFO] Configuring CMake with Clang..."
-"$CMAKE_DIR/bin/cmake" -G "Ninja" \
-    -DCMAKE_MAKE_PROGRAM="$NINJA_DIR/ninja" \
+
+# Формируем путь к CMake и Ninja
+if [ $USE_SYSTEM_CMAKE -eq 1 ]; then
+    CMAKE_EXE="cmake"
+else
+    CMAKE_EXE="$CMAKE_DIR/bin/cmake"
+fi
+
+if [ $USE_SYSTEM_NINJA -eq 1 ]; then
+    NINJA_EXE="ninja"
+else
+    NINJA_EXE="$NINJA_DIR/ninja"
+fi
+
+"$CMAKE_EXE" -G "Ninja" \
+    -DCMAKE_MAKE_PROGRAM="$NINJA_EXE" \
     -DCMAKE_C_COMPILER="$LLVM_DIR/bin/clang" \
     -DCMAKE_CXX_COMPILER="$LLVM_DIR/bin/clang++" \
     -DCMAKE_BUILD_TYPE=Release \
@@ -121,9 +168,9 @@ echo "[INFO] Configuring CMake with Clang..."
 
 # === 7. Сборка и установка ===
 echo "[INFO] Building..."
-"$NINJA_DIR/ninja"
+"$NINJA_EXE"
 echo "[INFO] Installing..."
-"$NINJA_DIR/ninja" install
+"$NINJA_EXE" install
 
 echo
 echo "============================================================"
