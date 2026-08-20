@@ -2,7 +2,7 @@
 set -e
 
 echo "============================================================"
-echo "CastXML Builder - Linux (separate tools, no git)"
+echo "CastXML Builder - Linux (minimal, uses system gcc/g++)"
 echo "============================================================"
 echo
 
@@ -14,7 +14,7 @@ command -v unzip >/dev/null 2>&1 || { echo "ERROR: unzip not found. Install: sud
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT="$SCRIPT_DIR"
 
-# === Linux-специфичные папки (не пересекаются с Windows) ===
+# === Папки для Linux  ===
 TOOLS_LINUX_DIR="$ROOT/tools-linux"
 CMAKE_DIR="$TOOLS_LINUX_DIR/cmake-3.20"
 NINJA_DIR="$TOOLS_LINUX_DIR/ninja"
@@ -31,7 +31,7 @@ echo "  Build:  $BUILD_DIR"
 echo "  Install: $INSTALL_DIR"
 echo
 
-# === 1. Скачивание CMake для Linux ===
+# === 1. Скачивание CMake ===
 if [ ! -f "$CMAKE_DIR/bin/cmake" ]; then
     echo "[INFO] Downloading CMake 3.20 for Linux..."
     mkdir -p "$TOOLS_LINUX_DIR"
@@ -42,7 +42,7 @@ if [ ! -f "$CMAKE_DIR/bin/cmake" ]; then
     cd "$ROOT"
 fi
 
-# === 2. Скачивание Ninja для Linux ===
+# === 2. Скачивание Ninja ===
 if [ ! -f "$NINJA_DIR/ninja" ]; then
     echo "[INFO] Downloading Ninja for Linux..."
     mkdir -p "$NINJA_DIR"
@@ -72,10 +72,9 @@ if [ ! -d "$LLVM_DIR" ] || [ ! -f "$LLVM_DIR/lib/cmake/llvm/LLVMConfig.cmake" ];
     cd "$ROOT"
 fi
 
-# Проверка наличия clang
-if [ ! -f "$LLVM_DIR/bin/clang++" ]; then
-    echo "ERROR: clang++ not found in $LLVM_DIR/bin"
-    echo "Please check the folder structure."
+# Проверка наличия LLVMConfig.cmake
+if [ ! -f "$LLVM_DIR/lib/cmake/llvm/LLVMConfig.cmake" ]; then
+    echo "ERROR: LLVMConfig.cmake not found in $LLVM_DIR"
     exit 1
 fi
 
@@ -104,16 +103,19 @@ fi
 mkdir -p "$BUILD_DIR"
 cd "$BUILD_DIR"
 
-# === 6. Конфигурация CMake (исправлено: указан путь к Ninja) ===
-echo "[INFO] Configuring CMake with Clang..."
+# === 6. Конфигурация CMake с системным gcc/g++ ===
+echo "[INFO] Configuring CMake with system gcc/g++..."
 "$CMAKE_DIR/bin/cmake" -G "Ninja" \
     -DCMAKE_MAKE_PROGRAM="$NINJA_DIR/ninja" \
-    -DCMAKE_C_COMPILER="$LLVM_DIR/bin/clang" \
-    -DCMAKE_CXX_COMPILER="$LLVM_DIR/bin/clang++" \
+    -DCMAKE_C_COMPILER="${CC:-gcc}" \
+    -DCMAKE_CXX_COMPILER="${CXX:-g++}" \
     -DCMAKE_BUILD_TYPE=Release \
     -DClang_DIR="$LLVM_DIR/lib/cmake/clang" \
-    -DLLVM_DIR="$LLVM_DIR/lib/cmake/llvm" \
-    -DCMAKE_INSTALL_PREFIX="$INSTALL_DIR" \
+    -DLLVM_DIR="$LLVM_DIR/lib/cmake/llvm"
+
+
+\
+-DCMAKE_INSTALL_PREFIX="$INSTALL_DIR" \
     -DLLVM_STATIC_LINK_CXX_STDLIB=ON \
     -DCMAKE_CXX_FLAGS="-static-libgcc -static-libstdc++ -O2 -s" \
     -DCMAKE_EXE_LINKER_FLAGS="-static-libgcc -static-libstdc++" \
